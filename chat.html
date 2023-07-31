@@ -19,6 +19,7 @@
 </div>
 <script type='text/javascript' src='https://service.force.com/embeddedservice/5.0/esw.min.js'></script>
 <script type='text/javascript'>
+	 var retornochat;
 	var initESW = function(gslbBaseURL) {
 		embedded_svc.settings.displayHelpButton = retornochat; //Or false
 		embedded_svc.settings.language = 'pt-br'; //For example, enter 'en' or 'en-US'
@@ -69,9 +70,7 @@
 	} else {
 		initESW('https://service.force.com');
 	}
-</script>
-	<script>
-        function ValidaBotao() {
+	function ValidaBotao() {
 const dataHoje = new Date()
 const horaMaxima = dataHoje.getHours()
 const horarioInformado = document.getElementById('appt').value;
@@ -89,5 +88,6 @@ if (horarioInformado >= 8 || horarioInformado <= 17){  return true
         // Atualiza a hora a cada segundo (1000 milissegundos)
 
 	setInterval(ValidaBotao,1000);
-    </script>
+</script>
+
 </html>
