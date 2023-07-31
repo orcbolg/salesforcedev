@@ -1,11 +1,20 @@
 <html>
 
-<label for="appt">Choose a time for your meeting:</label>
+    <py-config>
+	plugins = [
+	  "https://pyscript.net/latest/plugins/python/py_tutor.py"
+	]
+    </py-config>
 
-<input type="time" id="appt" name="appt"
-       min="09:00" max="18:00" required>
-
-<small>Office hours are 9am to 6pm</small>	
+    <section class="pyscript">
+	Hello world! <br>
+	This is the current date and time, as computed by Python:
+	<py-script>
+	    from datetime import datetime
+	    now = datetime.now()
+	    display(now.strftime("%m/%d/%Y, %H:%M:%S"))
+	</py-script>
+    </section>	
 	
 <style type='text/css'>
 	.embeddedServiceHelpButton .helpButton .uiButton {
