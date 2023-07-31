@@ -84,9 +84,11 @@
             const horaAtual = atualizarHora();
             const horaLimite = '18:00:00';
 
-           if (horaAtual >= horaLimite){
+           if (horaAtual <= horaLimite){
 		   return true
-	   } else {return false}
+	   } else {
+		   return false
+	   }
         }		
 		
 
