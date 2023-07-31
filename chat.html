@@ -67,39 +67,31 @@
 	}
 </script>
 	<script>
-        function atualizarHora() {
-            const dataAtual = new Date();
-            // Adiciona 3 horas à hora atual
-            dataAtual.setHours(dataAtual.getHours() + 3);
+        function ValidaBotao() {
+const dataHoje = new Date()
+const horaMaxima = dataHoje.getHours()
 
-            const hora = dataAtual.getHours().toString().padStart(2, '0');
-            const minutos = dataAtual.getMinutes().toString().padStart(2, '0');
-            const segundos = dataAtual.getSeconds().toString().padStart(2, '0');
+ 
 
-            const horaFormatada = `${hora}:${minutos}:${segundos}`;
-            document.getElementById('horaAtual').textContent = horaFormatada;
+if (horaMaxima <= 18) {
+    return true
+    } else {
+        return false
+    }
 
-            return `${hora}:${minutos}:${segundos}`;
-        }
+ 
 
-        // Chama a função inicialmente para exibir a hora atual
-        atualizarHora();
-        function validaHora() {
-            const horaAtual = atualizarHora();
-            const horaLimite = '18:00:00';
+}
 
-           if (horaAtual <= horaLimite){
-		  
-		   return true
-	   } else {
-		   return false
-	   }
-        }		
+ 
+
+ValidaBotao();
+
 		
-	retornochat = validaHora();
+	retornochat = ValidaBotao();
 	document.getElementById('teste').textContent = retornochat;
         // Atualiza a hora a cada segundo (1000 milissegundos)
-        setInterval(atualizarHora, 1000);
-	setInterval(validaHora,1000);
+
+	setInterval(ValidaBotao,1000);
     </script>
 </html>
