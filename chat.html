@@ -12,6 +12,10 @@
 <div>
 	 <p id="horaAtual"></p>
 	 <p id="teste"></p>
+	 <label for="appt">Choose a time for your meeting:</label>
+
+<input type="time" id="appt" name="appt"
+       min="08:00" max="18:00" value="12:00" required>
 </div>
 <script type='text/javascript' src='https://service.force.com/embeddedservice/5.0/esw.min.js'></script>
 <script type='text/javascript'>
@@ -70,22 +74,14 @@
         function ValidaBotao() {
 const dataHoje = new Date()
 const horaMaxima = dataHoje.getHours()
+const horarioInformado = document.getElementById('appt').value;
 
- 
-
-if (horaMaxima <= 17) {
-    return true
+if (horarioInformado >= 8 || horarioInformado <= 17){  return true
     } else {
         return false
     }
 
- 
-
-}
-
- 
-
-ValidaBotao();
+ ValidaBotao();
 
 		
 	retornochat = ValidaBotao();
