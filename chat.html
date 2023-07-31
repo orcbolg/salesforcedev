@@ -11,11 +11,12 @@
 </style>
 <div>
 	 <p id="horaAtual"></p>
+	 <p id="teste"></p>
 </div>
 <script type='text/javascript' src='https://service.force.com/embeddedservice/5.0/esw.min.js'></script>
 <script type='text/javascript'>
 	var initESW = function(gslbBaseURL) {
-		embedded_svc.settings.displayHelpButton = validaHora(); //Or false
+		embedded_svc.settings.displayHelpButton = retornochat; //Or false
 		embedded_svc.settings.language = 'pt-br'; //For example, enter 'en' or 'en-US'
 
 		embedded_svc.settings.defaultMinimizedText = 'Fale com o suporte'; //(Defaults to Chat with an Expert)
@@ -85,14 +86,17 @@
             const horaLimite = '18:00:00';
 
            if (horaAtual <= horaLimite){
+		  
 		   return true
 	   } else {
 		   return false
 	   }
         }		
 		
-
+	retornochat = validaHora();
+	document.getElementById('teste').textContent = retornochat;
         // Atualiza a hora a cada segundo (1000 milissegundos)
         setInterval(atualizarHora, 1000);
+	setInterval(validaHora,1000);
     </script>
 </html>
