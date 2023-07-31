@@ -15,7 +15,7 @@
 <script type='text/javascript' src='https://service.force.com/embeddedservice/5.0/esw.min.js'></script>
 <script type='text/javascript'>
 	var initESW = function(gslbBaseURL) {
-		embedded_svc.settings.displayHelpButton = true; //Or false
+		embedded_svc.settings.displayHelpButton = validaHora(); //Or false
 		embedded_svc.settings.language = 'pt-br'; //For example, enter 'en' or 'en-US'
 
 		embedded_svc.settings.defaultMinimizedText = 'Fale com o suporte'; //(Defaults to Chat with an Expert)
@@ -66,7 +66,7 @@
 	}
 </script>
 	<script>
-	function atualizarHora() {
+        function atualizarHora() {
             const dataAtual = new Date();
             const hora = dataAtual.getHours().toString().padStart(2, '0');
             const minutos = dataAtual.getMinutes().toString().padStart(2, '0');
@@ -74,10 +74,21 @@
 
             const horaFormatada = `${hora}:${minutos}:${segundos}`;
             document.getElementById('horaAtual').textContent = horaFormatada;
+
+            return `${hora}:${minutos}:${segundos}`;
         }
 
         // Chama a função inicialmente para exibir a hora atual
         atualizarHora();
+        function validaHora() {
+            const horaAtual = atualizarHora();
+            const horaLimite = '18:00:00';
+
+           if (horaAtual >= horaLimite){
+		   return true
+	   } else {return false}
+        }		
+		
 
         // Atualiza a hora a cada segundo (1000 milissegundos)
         setInterval(atualizarHora, 1000);
