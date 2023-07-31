@@ -1,20 +1,4 @@
 <html>
-
-    <py-config>
-	plugins = [
-	  "https://pyscript.net/latest/plugins/python/py_tutor.py"
-	]
-    </py-config>
-
-    <section class="pyscript">
-	Hello world! <br>
-	This is the current date and time, as computed by Python:
-	<py-script>
-	    from datetime import datetime
-	    now = datetime.now()
-	    display(now.strftime("%m/%d/%Y, %H:%M:%S"))
-	</py-script>
-    </section>	
 	
 <style type='text/css'>
 	.embeddedServiceHelpButton .helpButton .uiButton {
@@ -29,7 +13,7 @@
 <script type='text/javascript' src='https://service.force.com/embeddedservice/5.0/esw.min.js'></script>
 <script type='text/javascript'>
 	var initESW = function(gslbBaseURL) {
-		embedded_svc.settings.displayHelpButton = false; //Or false
+		embedded_svc.settings.displayHelpButton = true; //Or false
 		embedded_svc.settings.language = 'pt-br'; //For example, enter 'en' or 'en-US'
 
 		embedded_svc.settings.defaultMinimizedText = 'Fale com o suporte'; //(Defaults to Chat with an Expert)
