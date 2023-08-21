@@ -71,7 +71,7 @@
 
         // Horário comercial: de segunda a sexta, das 9h às 18h
         const isWeekday = dayOfWeek >= 1 && dayOfWeek <= 5;
-        const isBusinessHour = hour >= 9 && hour < 18;
+        const isBusinessHour = hour >= 9 && hour < 11;
 
         return isWeekday && isBusinessHour;
     }
