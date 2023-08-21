@@ -64,18 +64,36 @@
 	}
 </script>
 <script>
+    function isBusinessHours() {
+        const now = new Date();
+        const dayOfWeek = now.getDay(); // 0 (Domingo) a 6 (Sábado)
+        const hour = now.getHours();
+
+        // Horário comercial: de segunda a sexta, das 9h às 18h
+        const isWeekday = dayOfWeek >= 1 && dayOfWeek <= 5;
+        const isBusinessHour = hour >= 9 && hour < 18;
+
+        return isWeekday && isBusinessHour;
+    }
+
     function checkAvailability() {
         const elementEnabled = document.getElementsByClassName('uiButton helpButtonEnabled');
         const elementDisabled = document.getElementsByClassName('uiButton helpButtonDisabled');
-        if(elementEnabled && elementEnabled.length > 0) {
-            document.getElementsByClassName('embeddedServiceHelpButton').item(0).style.display = "block";
+        const helpButton = document.getElementsByClassName('embeddedServiceHelpButton').item(0);
+
+        if (elementEnabled && elementEnabled.length > 0) {
+            if (isBusinessHours()) {
+                helpButton.style.display = "block";
+            } else {
+                helpButton.style.display = "none";
+            }
         }
-        if(elementDisabled && elementDisabled.length > 0) {
-            document.getElementsByClassName('embeddedServiceHelpButton').item(0).style.display = "none";
-        }     
+
+        if (elementDisabled && elementDisabled.length > 0) {
+            helpButton.style.display = "none";
+        }
     }
 
-   
     window.setInterval(function () {
         checkAvailability();
     }, 500);
