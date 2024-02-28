@@ -9,7 +9,7 @@
 	}
 </style>
 
-<select id="chatType" onchange="changeChatType()">
+<select id="chatType" onchange="changeChatType(); loadEmbeddedServiceScript()">
     <option value="">Select Chat Type</option>
     <option value="5738b000000PbKO">Start Chat</option>
     <option value="5738b000000PbKJ">Start Chat 2</option>
@@ -47,16 +47,21 @@
 			}
 		);
 	};
-    
-	if (!window.embedded_svc) {
-		var s = document.createElement('script');
-		s.setAttribute('src', 'https://resourceful-bear-ewssun-dev-ed.trailblaze.my.salesforce.com/embeddedservice/5.0/esw.min.js');
-		s.onload = function() {
-			initESW(null);
-		};
-		document.body.appendChild(s);
-	} else {
-		initESW('https://service.force.com');
-	}
+	
+    function loadEmbeddedServiceScript() {
+    // Remover o script existente, se houver
+    var existingScript = document.querySelector('script[src="https://resourceful-bear-ewssun-dev-ed.trailblaze.my.salesforce.com/embeddedservice/5.0/esw.min.js"]');
+    if (existingScript) {
+        existingScript.parentNode.removeChild(existingScript);
+    }
+
+    // Carregar o novo script
+    var s = document.createElement('script');
+    s.setAttribute('src', 'https://resourceful-bear-ewssun-dev-ed.trailblaze.my.salesforce.com/embeddedservice/5.0/esw.min.js');
+    s.onload = function() {
+        initESW(null);
+    };
+    document.body.appendChild(s);
+}
 </script>
 </html>
