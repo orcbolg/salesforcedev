@@ -35,40 +35,39 @@
 
     function clearSession() {
         console.log('Inside Clear Chat Session');
-        embedded_svc.liveAgentAPI.clearSession();
+        if(embedded_svc && embedded_svc.liveAgentAPI) {
+            embedded_svc.liveAgentAPI.clearSession();
+        } else {
+            console.log('LiveAgent API not available');
+        }
     }
 
-    function initESW(directToButtonRouting) {
-        embedded_svc.settings.directToButtonRouting = function(prechatFormData) {
-            // Define a lógica de roteamento dinâmico aqui, usando os dados do prechatFormData
-            // Neste exemplo simples, estamos retornando o botão de destino com base na seleção do usuário
-            if(prechatFormData[2].value === 'Sales') {
-                return '5733t0000000nzr'; // ID do botão para o departamento de Vendas
-            } else {
-                return '5733t0000005Lpv'; // ID do botão para outros departamentos (neste caso, o botão padrão)
-            }
-        };
+    function initESW(selectedButtonId) {
+        if(embedded_svc) {
+            embedded_svc.settings.directToButtonRouting = selectedButtonId;
+            embedded_svc.settings.displayHelpButton = true; //Or false
+            embedded_svc.settings.language = ''; //For example, enter 'en' or 'en-US'
+            embedded_svc.settings.enabledFeatures = ['LiveAgent'];
+            embedded_svc.settings.entryFeature = 'LiveAgent';
 
-        embedded_svc.settings.displayHelpButton = true; //Or false
-        embedded_svc.settings.language = ''; //For example, enter 'en' or 'en-US'
-        embedded_svc.settings.enabledFeatures = ['LiveAgent'];
-        embedded_svc.settings.entryFeature = 'LiveAgent';
-
-        embedded_svc.init(
-            'https://hipersistema.my.salesforce.com',
-            'https://hipersistema.my.salesforce-sites.com/',
-            null, // Note que estamos passando null para gslbBaseURL, pois não estamos usando GSLB
-            '00D3t000004mr1I',
-            'Hiper_Cheff',
-            {
-                baseLiveAgentContentURL: 'https://c.la1-c1-ia5.salesforceliveagent.com/content',
-                deploymentId: '5723t0000000nFO',
-                buttonId: '5733t0000000nzr', // Isso será substituído dinamicamente pela função directToButtonRouting
-                baseLiveAgentURL: 'https://d.la1-c1-ia5.salesforceliveagent.com/chat',
-                eswLiveAgentDevName: 'Hiper_Cheff_PH',
-                isOfflineSupportEnabled: false
-            }
-        );
+            embedded_svc.init(
+                'https://hipersistema.my.salesforce.com',
+                'https://hipersistema.my.salesforce-sites.com/',
+                null, // Note que estamos passando null para gslbBaseURL, pois não estamos usando GSLB
+                '00D3t000004mr1I',
+                'Hiper_Cheff',
+                {
+                    baseLiveAgentContentURL: 'https://c.la1-c1-ia5.salesforceliveagent.com/content',
+                    deploymentId: '5723t0000000nFO',
+                    buttonId: selectedButtonId, // ID do botão de destino selecionado
+                    baseLiveAgentURL: 'https://d.la1-c1-ia5.salesforceliveagent.com/chat',
+                    eswLiveAgentDevName: 'Hiper_Cheff_PH',
+                    isOfflineSupportEnabled: false
+                }
+            );
+        } else {
+            console.log('Embedded Service not available');
+        }
     }
 </script>
 
