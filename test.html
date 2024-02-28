@@ -28,9 +28,9 @@
 
     function changeChatType() {
         var selectedButtonId = chatTypeSelect.options[chatTypeSelect.selectedIndex].value;
-        if(selectedButtonId !== "") {
+        if (selectedButtonId !== "") {
             embedded_svc.settings.directToButtonRouting = selectedButtonId;
-            initESW(null); // Chamando a função de inicialização apenas se a opção não for vazia
+            initESW();
         }
     }
 
@@ -39,28 +39,38 @@
         embedded_svc.liveAgentAPI.clearSession();
     }
 
-    function initESW(gslbBaseURL) {
-        embedded_svc.settings.displayHelpButton = true; //Or false
-        embedded_svc.settings.language = ''; //For example, enter 'en' or 'en-US
-        embedded_svc.settings.enabledFeatures = ['LiveAgent'];
-        embedded_svc.settings.entryFeature = 'LiveAgent';
-
-        embedded_svc.init(
-            'https://hipersistema.my.salesforce.com',
-            'https://hipersistema.my.salesforce-sites.com/',
-            gslbBaseURL,
-            '00D3t000004mr1I',
-            'Hiper_Cheff',
-            {
-                baseLiveAgentContentURL: 'https://c.la1-c1-ia5.salesforceliveagent.com/content',
-                deploymentId: '5723t0000000nFO',
-                buttonId: '5733t0000000nzr',
-                baseLiveAgentURL: 'https://d.la1-c1-ia5.salesforceliveagent.com/chat',
-                eswLiveAgentDevName: 'Hiper_Cheff_PH',
-                isOfflineSupportEnabled: false
-            }
-        );
+    function initESW() {
+        if (!window.embedded_svc) {
+            var s = document.createElement('script');
+            s.setAttribute('src', 'https://hipersistema.my.salesforce.com/embeddedservice/5.0/esw.min.js');
+            s.onload = function() {
+                embedded_svc.settings.displayHelpButton = true;
+                embedded_svc.settings.language = '';
+                embedded_svc.settings.enabledFeatures = ['LiveAgent'];
+                embedded_svc.settings.entryFeature = 'LiveAgent';
+                embedded_svc.init(
+                    'https://hipersistema.my.salesforce.com',
+                    'https://hipersistema.my.salesforce-sites.com/',
+                    null,
+                    '00D3t000004mr1I',
+                    'Hiper_Cheff',
+                    {
+                        baseLiveAgentContentURL: 'https://c.la1-c1-ia5.salesforceliveagent.com/content',
+                        deploymentId: '5723t0000000nFO',
+                        buttonId: embedded_svc.settings.directToButtonRouting,
+                        baseLiveAgentURL: 'https://d.la1-c1-ia5.salesforceliveagent.com/chat',
+                        eswLiveAgentDevName: 'Hiper_Cheff_PH',
+                        isOfflineSupportEnabled: false
+                    }
+                );
+            };
+            document.body.appendChild(s);
+        } else {
+            embedded_svc.settings.buttonId = embedded_svc.settings.directToButtonRouting;
+            embedded_svc.init();
+        }
     }
+
 </script>
 
 </body>
