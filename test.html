@@ -22,7 +22,7 @@
 
 <input type="button" value="Clear Chat Session" onclick="clearSession();"/><br/><br/><br/>
 
-<script type='text/javascript' src='https://service.force.com/embeddedservice/5.0/esw.min.js' onload="initESWAfterLoad();"></script>
+<script type='text/javascript' src='https://service.force.com/embeddedservice/5.0/esw.min.js'></script>
 <script type='text/javascript'>
     var chatTypeSelect = document.getElementById("chatType");
 
@@ -43,46 +43,36 @@
     }
 
     function initESW(directToButtonRouting) {
-        if(embedded_svc) {
-            embedded_svc.settings.directToButtonRouting = function(prechatFormData) {
-                // Defina a lógica de roteamento dinâmico aqui, com base no valor selecionado na picklist
-                if (directToButtonRouting === "5733t0000000nzr") {
-                    return '5733t0000000nzr'; // ID do botão para a opção "Start Chat 2"
-                } else {
-                    return '5733t0000005Lpv'; // ID do botão para a opção "Start Chat" (ou qualquer outra opção)
-                }
-            };
-
-            embedded_svc.settings.displayHelpButton = true; //Or false
-            embedded_svc.settings.language = ''; //For example, enter 'en' or 'en-US'
-            embedded_svc.settings.enabledFeatures = ['LiveAgent'];
-            embedded_svc.settings.entryFeature = 'LiveAgent';
-
-            embedded_svc.init(
-                'https://hipersistema.my.salesforce.com',
-                'https://hipersistema.my.salesforce-sites.com/',
-                null, // Note que estamos passando null para gslbBaseURL, pois não estamos usando GSLB
-                '00D3t000004mr1I',
-                'Hiper_Cheff',
-                {
-                    baseLiveAgentContentURL: 'https://c.la1-c1-ia5.salesforceliveagent.com/content',
-                    deploymentId: '5723t0000000nFO',
-                    buttonId: '5733t0000000nzr', // Isso será substituído dinamicamente pela função directToButtonRouting
-                    baseLiveAgentURL: 'https://d.la1-c1-ia5.salesforceliveagent.com/chat',
-                    eswLiveAgentDevName: 'Hiper_Cheff_PH',
-                    isOfflineSupportEnabled: false
-                }
-            );
-        } else {
-            console.log('Embedded Service not available');
+        if (typeof embedded_svc === 'undefined') {
+            console.log('embedded_svc not defined yet. Waiting for initialization...');
+            return;
         }
-    }
 
-    function initESWAfterLoad() {
-        // Esta função é chamada após o carregamento completo da biblioteca esw.min.js
-        // Inicializa o ESW (Embedded Service Widget) somente após o carregamento completo
-        // para evitar erros de "embedded_svc is not defined"
-        console.log('Embedded Service loaded');
+        embedded_svc.settings.directToButtonRouting = function() {
+            // Defina a lógica de roteamento dinâmico aqui, com base no valor selecionado na picklist
+            return directToButtonRouting;
+        };
+
+        embedded_svc.settings.displayHelpButton = true; //Or false
+        embedded_svc.settings.language = ''; //For example, enter 'en' or 'en-US'
+        embedded_svc.settings.enabledFeatures = ['LiveAgent'];
+        embedded_svc.settings.entryFeature = 'LiveAgent';
+
+        embedded_svc.init(
+            'https://hipersistema.my.salesforce.com',
+            'https://hipersistema.my.salesforce-sites.com/',
+            null, // Note que estamos passando null para gslbBaseURL, pois não estamos usando GSLB
+            '00D3t000004mr1I',
+            'Hiper_Cheff',
+            {
+                baseLiveAgentContentURL: 'https://c.la1-c1-ia5.salesforceliveagent.com/content',
+                deploymentId: '5723t0000000nFO',
+                buttonId: directToButtonRouting, // Isso será substituído dinamicamente pela função directToButtonRouting
+                baseLiveAgentURL: 'https://d.la1-c1-ia5.salesforceliveagent.com/chat',
+                eswLiveAgentDevName: 'Hiper_Cheff_PH',
+                isOfflineSupportEnabled: false
+            }
+        );
     }
 </script>
 
