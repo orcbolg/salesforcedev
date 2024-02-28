@@ -15,6 +15,7 @@
 <body>
 
 <select id="chatType" onchange="changeChatType()">
+    <option value="">Select Chat Type</option>
     <option value="5733t0000005Lpv">Start Chat</option>
     <option value="5733t0000000nzr">Start Chat 2</option>
 </select><br/><br/><br/>
@@ -23,7 +24,22 @@
 
 <script type='text/javascript' src='https://service.force.com/embeddedservice/5.0/esw.min.js'></script>
 <script type='text/javascript'>
-    var initESW = function(gslbBaseURL) {
+    var chatTypeSelect = document.getElementById("chatType");
+
+    function changeChatType() {
+        var selectedButtonId = chatTypeSelect.options[chatTypeSelect.selectedIndex].value;
+        if(selectedButtonId !== "") {
+            embedded_svc.settings.directToButtonRouting = selectedButtonId;
+            initESW(null); // Chamando a função de inicialização apenas se a opção não for vazia
+        }
+    }
+
+    function clearSession() {
+        console.log('Inside Clear Chat Session');
+        embedded_svc.liveAgentAPI.clearSession();
+    }
+
+    function initESW(gslbBaseURL) {
         embedded_svc.settings.displayHelpButton = true; //Or false
         embedded_svc.settings.language = ''; //For example, enter 'en' or 'en-US
         embedded_svc.settings.enabledFeatures = ['LiveAgent'];
@@ -44,28 +60,6 @@
                 isOfflineSupportEnabled: false
             }
         );
-    };
-
-    if (!window.embedded_svc) {
-        var s = document.createElement('script');
-        s.setAttribute('src', 'https://hipersistema.my.salesforce.com/embeddedservice/5.0/esw.min.js');
-        s.onload = function() {
-            initESW(null);
-        };
-        document.body.appendChild(s);
-    } else {
-        initESW('https://service.force.com');
-    }
-
-    function changeChatType() {
-        var chatTypeSelect = document.getElementById("chatType");
-        var selectedButtonId = chatTypeSelect.options[chatTypeSelect.selectedIndex].value;
-        embedded_svc.settings.directToButtonRouting = selectedButtonId;
-    }
-
-    function clearSession() {
-        console.log('Inside Clear Chat Session');
-        embedded_svc.liveAgentAPI.clearSession();
     }
 </script>
 
