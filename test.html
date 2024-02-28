@@ -56,14 +56,7 @@
 
     function startChat() {
         console.log('Inside Start Chat');
-        embedded_svc.liveAgentAPI.startChat({
-            directToAgentRouting: {
-                buttonId: "5733t0000005Lpv",
-                fallback: true
-            },
-            extraPrechatInfo: [],
-            extraPrechatFormDetails: []
-        });
+        embedded_svc.settings.directToButtonRouting = "5733t0000005Lpv";
     }
 
     function clearSession() {
@@ -72,15 +65,8 @@
     }
 
     function startChat2() {
-        console.log('Inside Start Chat2');
-        embedded_svc.liveAgentAPI.startChat({
-            directToAgentRouting: {
-                buttonId: "5733t0000000nzr",
-                fallback: true
-            },
-            extraPrechatInfo: [],
-            extraPrechatFormDetails: []
-        });
+        console.log('Inside Start Chat');
+        embedded_svc.settings.directToButtonRouting = "5733t0000000nzr";
     }
 </script>
 
