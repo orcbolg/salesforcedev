@@ -28,12 +28,6 @@
 		embedded_svc.settings.language = ''; //For example, enter 'en' or 'en-US'
 		// Settings for Chat
 		embedded_svc.settings.directToButtonRouting = '"' + ChatSelectionButtonID + '"';
-
-		};
-		//embedded_svc.settings.prepopulatedPrechatFields = {}; //Sets the auto-population of pre-chat form fields
-		//embedded_svc.settings.fallbackRouting = []; //An array of button IDs, user IDs, or userId_buttonId
-		//embedded_svc.settings.offlineSupportMinimizedText = '...'; //(Defaults to Contact Us)
-
 		embedded_svc.settings.enabledFeatures = ['LiveAgent'];
 		embedded_svc.settings.entryFeature = 'LiveAgent';
 
@@ -53,7 +47,7 @@
 			}
 		);
 	};
-
+    
 	if (!window.embedded_svc) {
 		var s = document.createElement('script');
 		s.setAttribute('src', 'https://resourceful-bear-ewssun-dev-ed.trailblaze.my.salesforce.com/embeddedservice/5.0/esw.min.js');
