@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Botões com código personalizado</title>
+<style type='text/css'>
+    .embeddedServiceHelpButton .helpButton .uiButton {
+        background-color: #ffc610;
+        font-family: "Arial", sans-serif;
+    }
+    .embeddedServiceHelpButton .helpButton .uiButton:focus {
+        outline: 1px solid #ffc610;
+    }
+</style>
+</head>
+<body>
+
+<button id="botao1">Botão 1</button>
+<button id="botao2">Botão 2</button>
+
+<script>
+    document.getElementById("botao1").addEventListener("click", function() {
+        var initESW = function(gslbBaseURL) {
+            embedded_svc.settings.displayHelpButton = true; //Or false
+            embedded_svc.settings.language = ''; //For example, enter 'en' or 'en-US'
+            embedded_svc.settings.enabledFeatures = ['LiveAgent'];
+            embedded_svc.settings.entryFeature = 'LiveAgent';
+
+            embedded_svc.init(
+                'https://hipersistema.my.salesforce.com',
+                'https://hipersistema.my.salesforce-sites.com/',
+                gslbBaseURL,
+                '00D3t000004mr1I',
+                'Hiper_Cheff',
+                {
+                    baseLiveAgentContentURL: 'https://c.la1-c1-ia5.salesforceliveagent.com/content',
+                    deploymentId: '5723t0000000nFO',
+                    buttonId: '5733t0000000nzr',
+                    baseLiveAgentURL: 'https://d.la1-c1-ia5.salesforceliveagent.com/chat',
+                    eswLiveAgentDevName: 'Hiper_Cheff_PH',
+                    isOfflineSupportEnabled: false
+                }
+            );
+        };
+
+        if (!window.embedded_svc) {
+            var s = document.createElement('script');
+            s.setAttribute('src', 'https://hipersistema.my.salesforce.com/embeddedservice/5.0/esw.min.js');
+            s.onload = function() {
+                initESW(null);
+            };
+            document.body.appendChild(s);
+        } else {
+            initESW('https://service.force.com');
+        }
+
+        console.log("Você clicou no botão 1");
+    });
+
+    document.getElementById("botao2").addEventListener("click", function() {
+        var initESW = function(gslbBaseURL) {
+            embedded_svc.settings.displayHelpButton = true; //Or false
+            embedded_svc.settings.language = ''; //For example, enter 'en' or 'en-US'
+            embedded_svc.settings.autoOpenPostChat = true;
+            embedded_svc.settings.enabledFeatures = ['LiveAgent'];
+            embedded_svc.settings.entryFeature = 'LiveAgent';
+
+            embedded_svc.init(
+                'https://hipersistema.my.salesforce.com',
+                'https://hipersistema.my.salesforce-sites.com/',
+                gslbBaseURL,
+                '00D3t000004mr1I',
+                'Atendimento_Hiper',
+                {
+                    baseLiveAgentContentURL: 'https://c.la1-c1-ia5.salesforceliveagent.com/content',
+                    deploymentId: '5723t0000005KkP',
+                    buttonId: '5733t0000005Lpv',
+                    baseLiveAgentURL: 'https://d.la1-c1-ia5.salesforceliveagent.com/chat',
+                    eswLiveAgentDevName: 'EmbeddedServiceLiveAgent_Parent04I04000000CaglEAC_1865f8c3629',
+                    isOfflineSupportEnabled: false
+                }
+            );
+        };
+
+        if (!window.embedded_svc) {
+            var s = document.createElement('script');
+            s.setAttribute('src', 'https://hipersistema.my.salesforce.com/embeddedservice/5.0/esw.min.js');
+            s.onload = function() {
+                initESW(null);
+            };
+            document.body.appendChild(s);
+        } else {
+            initESW('https://service.force.com');
+        }
+
+        console.log("Você clicou no botão 2");
+    });
+</script>
+
+</body>
+</html>
