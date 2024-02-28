@@ -21,7 +21,9 @@
 
 <script>
     document.getElementById("botao1").addEventListener("click", function() {
+        
         var initESW = function(gslbBaseURL) {
+            embedded_svc.liveAgentAPI.endChat();
             embedded_svc.settings.displayHelpButton = true; //Or false
             embedded_svc.settings.language = ''; //For example, enter 'en' or 'en-US'
             embedded_svc.settings.enabledFeatures = ['LiveAgent'];
@@ -59,7 +61,9 @@
     });
 
     document.getElementById("botao2").addEventListener("click", function() {
+        
         var initESW = function(gslbBaseURL) {
+            embedded_svc.liveAgentAPI.endChat();
             embedded_svc.settings.displayHelpButton = true; //Or false
             embedded_svc.settings.language = ''; //For example, enter 'en' or 'en-US'
             embedded_svc.settings.autoOpenPostChat = true;
