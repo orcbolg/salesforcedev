@@ -20,61 +20,56 @@
     <option value="5733t0000000nzr">Start Chat 2</option>
 </select><br/><br/><br/>
 
-<input type="button" value="Clear Chat Session" onclick="clearSession();"/><br/><br/><br/>
-
-<script type='text/javascript' src='https://service.force.com/embeddedservice/5.0/esw.min.js'></script>
-<script type='text/javascript'>
-    var chatTypeSelect = document.getElementById("chatType");
+<script type="text/javascript">
+    var ChatSelectionButtonID = ""; // Variável para armazenar o ID do botão selecionado
 
     function changeChatType() {
-        var selectedButtonId = chatTypeSelect.options[chatTypeSelect.selectedIndex].value;
-        if(selectedButtonId !== "") {
-            initESW(selectedButtonId); // Chama a função de inicialização com o botão de destino selecionado
-        }
-    }
-
-    function clearSession() {
-        console.log('Inside Clear Chat Session');
-        if(embedded_svc && embedded_svc.liveAgentAPI) {
-            embedded_svc.liveAgentAPI.clearSession();
-        } else {
-            console.log('LiveAgent API not available');
-        }
-    }
-
-    function initESW(directToButtonRouting) {
-        if (typeof embedded_svc === 'undefined') {
-            console.log('embedded_svc not defined yet. Waiting for initialization...');
-            return;
-        }
-
-        embedded_svc.settings.directToButtonRouting = function() {
-            // Defina a lógica de roteamento dinâmico aqui, com base no valor selecionado na picklist
-            return directToButtonRouting;
-        };
-
-        embedded_svc.settings.displayHelpButton = true; //Or false
-        embedded_svc.settings.language = ''; //For example, enter 'en' or 'en-US'
-        embedded_svc.settings.enabledFeatures = ['LiveAgent'];
-        embedded_svc.settings.entryFeature = 'LiveAgent';
-
-        embedded_svc.init(
-            'https://hipersistema.my.salesforce.com',
-            'https://hipersistema.my.salesforce-sites.com/',
-            null, // Note que estamos passando null para gslbBaseURL, pois não estamos usando GSLB
-            '00D3t000004mr1I',
-            'Hiper_Cheff',
-            {
-                baseLiveAgentContentURL: 'https://c.la1-c1-ia5.salesforceliveagent.com/content',
-                deploymentId: '5723t0000000nFO',
-                buttonId: directToButtonRouting, // Isso será substituído dinamicamente pela função directToButtonRouting
-                baseLiveAgentURL: 'https://d.la1-c1-ia5.salesforceliveagent.com/chat',
-                eswLiveAgentDevName: 'Hiper_Cheff_PH',
-                isOfflineSupportEnabled: false
-            }
-        );
+        var chatTypeSelect = document.getElementById("chatType");
+        ChatSelectionButtonID = chatTypeSelect.options[chatTypeSelect.selectedIndex].value;
+        console.log("Selected chat type button ID: " + ChatSelectionButtonID);
     }
 </script>
 
 </body>
+
+<script type='text/javascript' src='https://service.force.com/embeddedservice/5.0/esw.min.js'></script>
+<script type='text/javascript'>
+	var initESW = function(gslbBaseURL) {
+		embedded_svc.settings.displayHelpButton = true; //Or false
+		embedded_svc.settings.language = ''; //For example, enter 'en' or 'en-US'
+
+		// Settings for Chat
+		embedded_svc.settings.directToButtonRouting = '"' + ChatSelectionButtonID + '"';
+
+		embedded_svc.settings.enabledFeatures = ['LiveAgent'];
+		embedded_svc.settings.entryFeature = 'LiveAgent';
+
+		embedded_svc.init(
+			'https://hipersistema.my.salesforce.com',
+			'https://hipersistema.my.salesforce-sites.com/',
+			gslbBaseURL,
+			'00D3t000004mr1I',
+			'Hiper_Cheff',
+			{
+				baseLiveAgentContentURL: 'https://c.la1-c1-ia5.salesforceliveagent.com/content',
+				deploymentId: '5723t0000000nFO',
+				buttonId: '5733t0000000nzr',
+				baseLiveAgentURL: 'https://d.la1-c1-ia5.salesforceliveagent.com/chat',
+				eswLiveAgentDevName: 'Hiper_Cheff_PH',
+				isOfflineSupportEnabled: false
+			}
+		);
+	};
+
+	if (!window.embedded_svc) {
+		var s = document.createElement('script');
+		s.setAttribute('src', 'https://hipersistema.my.salesforce.com/embeddedservice/5.0/esw.min.js');
+		s.onload = function() {
+			initESW(null);
+		};
+		document.body.appendChild(s);
+	} else {
+		initESW('https://service.force.com');
+	}
+</script>
 </html>
