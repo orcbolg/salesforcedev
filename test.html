@@ -1,7 +1,7 @@
 <html>
-    <input type="button" value="Start Chat" onclick="startChat();"/><br/><br/><br/>
-    <input type="button" value="Clear Chat Session" onclick="clearSession();"/><br/>
-    <input type="button" value="Start Chat 2" onclick="startChat2();"/><br/>
+	<input type="button" value="Start Chat" onclick="startChat();"/><br/><br/><br/>
+	<input type="button" value="Clear Chat Session" onclick="clearSession();"/><br/>
+	<input type="button" value="Start Chat 2" onclick="startChat2();"/><br/>
     
 <html>
 	
@@ -68,6 +68,12 @@
             });
             
         }
+        function clearSession() {
+            
+            console.log( 'Inside Start Chat' );
+            embedded_svc.liveAgentAPI.clearSession();
+            
+        }
         function startChat2() {
             
             console.log( 'Inside Start Chat2' );
@@ -82,11 +88,6 @@
             
         }
         
-        function clearSession() {
-            
-            console.log( 'Inside Start Chat' );
-            embedded_svc.liveAgentAPI.clearSession();
-            
-        }
+
     </script>
 </html>
