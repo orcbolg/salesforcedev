@@ -43,10 +43,20 @@
 
 		
 		function tocarNotificacao() {
-			const notificacao = new Audio('notificacao.mp3');
-			console.log("SOM DJ, ALOW SOM DJ");
-			notificacao.play();
+			const notificacao = new Audio();
+			notificacao.src = 'src/notificacao.mp3';
+		
+			const notificaoPromise = notificacao.play();
+		
+			if (notificaoPromise !== undefined) {
+				notificaoPromise.then(() => {
+					console.log("SOLTA O SOM DJ");
+				}).catch(error => {
+					console.log(error);
+				});
+			}
 		}
+		
 
 
 		if (!window.embedded_svc) {
