@@ -10,10 +10,6 @@
 	}
 </style>
 
-<body>
-
-	<audio id="notificacao" src="bow_shoot.mp3" preload="auto"></audio>
-
 	<script type='text/javascript' src='https://service.force.com/embeddedservice/5.0/esw.min.js'></script>
 	<script type='text/javascript'>
 		var initESW = function (gslbBaseURL) {
@@ -25,7 +21,6 @@
 
 			embedded_svc.addEventHandler("onAgentMessage", function (data) {
 				console.log("onAgentMessage event was fired.  liveAgentSessionKey was " + data.liveAgentSessionKey);
-				console.log("SOM DJ, ALOW SOM DJ");
 				tocarNotificacao();
 			});
 
@@ -46,8 +41,10 @@
 			);
 		};
 
+		
 		function tocarNotificacao() {
-			var notificacao = document.getElementById("notificacao");
+			const notificacao = new Audio('notificacao.mp3');
+			console.log("SOM DJ, ALOW SOM DJ");
 			notificacao.play();
 		}
 
@@ -63,6 +60,5 @@
 			initESW('https://service.force.com');
 		}
 	</script>
-</body>
 
 </html>
